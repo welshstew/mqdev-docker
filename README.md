@@ -28,5 +28,28 @@ mvn install:install-file -Dfile=com.ibm.mq.allclient.jar -DgroupId=com.ibm.mq -D
 
 My configuration/settings.xml is pointed to my local nexus where I have stuffs.
 
+## Running via docker...
 
+```
+docker run --env LICENSE=accept --env MQ_QMGR_NAME=QM2 -it --user=root --rm $MQ_IMAGE_ID bash
+```
 
+### Setting up SSL..?
+
+https://www.ibm.com/developerworks/websphere/library/techarticles/0608_vanstone/0608_vanstone.html
+
+https://www.youtube.com/watch?v=MWJb1sQ9um0
+
+```
+runmqckm -keydb -create -db mydb -pw password -type jks
+
+runmqakm -cert -create -db /opt/mqm/bin/mydb.jks -pw password -label label -dn cn=self
+----
+
+runmqakm -fips -keydb -create -db key.kdb -pw password
+runmqakm -fips -cert -create -db key.kdb -dn cn=local -label hello -pw password
+
+-----
+runmqckm -cert -create -db wmqca.kdb -pw password -label wmqca -dn " CN=WMQ CA, OU=WMQ, O=RedHat, L=Cardiff, ST=Wales, C=UK" -expire 365
+
+```

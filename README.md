@@ -1,6 +1,6 @@
 # mqdev-docker
 
-Simple thing to get ibmmq up and running on OpenShift
+Simple thing to get ibmmq up and running on OpenShift.  Using WMQ8 and turning auth off
 
 ```
 oc new-app https://github.com/welshstew/mqdev-docker --strategy=docker -e LICENSE=accept,MQ_QMGR_NAME=MQ1
